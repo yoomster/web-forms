@@ -12,7 +12,10 @@
     </select>
 
     <label>Skills:</label>
-    <input type="text" v-model="tempSkill" />
+    <input type="text" v-model="tempSkill" @keyup.alt="addSkill" />
+    <div v-for="skill in skills" :key="skill" class="skill">
+      Skils: {{ skill }}
+    </div>
 
     <div class="terms">
       <input type="checkbox" v-model="terms" />
@@ -37,6 +40,16 @@ export default {
       tempSkill: "",
       skills: [],
     };
+  },
+  methods: {
+    addSkill(e) {
+      if (e.key === "," && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill);
+        }
+        this.tempSkill = "";
+      }
+    },
   },
 };
 </script>
